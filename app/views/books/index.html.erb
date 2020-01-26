@@ -1,3 +1,6 @@
+<script src="https://kit.fontawesome.com/91cb576a9e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="style.css">
+
 <div class='container'>
 <div class="row">
 	<div class="col-xs-3">
@@ -34,11 +37,29 @@
 					</td>
 					<td><%= link_to book.title, book, class: "book_#{book.id}" %></td>
 					<td><%= book.body %></td>
+					<% if book.favorited_by?(current_user) %>
+					<td>
+						<%= link_to favorite_path(book), method: :delete do %>
+						<i class="fa fa-heart" aria-hidden="true" style="color: red;"></i>
+						<%= book.favorites.count %> 
+						<% end %>
+					</td>
+					<% else %>
+					<td>
+						<%= link_to favorite_path(book), method: :put do %>
+						<i class="fa fa-heart-o" aria-hidden="true"></i>
+						<%= book.favorites.count %> 
+						<% end %>
+					</td>
+					<% end %>
+					<td>
+                <i class="fa fa-comment"></i>
+                <a href="#comments"><%= book.comments.count %></a>
+              	</td>
 				</tr>
 				<% end %>
 			</tbody>
 		</table>
-
 		<!--books一覧 -->
 
 
