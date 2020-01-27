@@ -1,0 +1,23 @@
+<div class='container'>
+<h1>follow</h1>
+<% @user.followings.each do |user| %>
+<table>
+<thead>
+		<tr>
+			<th>image</th>
+			<th>name</th>
+		</tr>
+	</thead>
+  <tbody>
+<tr>
+  <td><%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg") %></td>
+  <td>  <%= user.name %> </td>
+  <td><%= render 'users/follow_form', user: user %></td>
+	<td><%= render 'users/stats', user: user %></td>
+  <td><%= link_to '詳細', user_path(user) %></td>
+</tr>
+</tbody>
+
+</table>
+<% end %>
+</div>

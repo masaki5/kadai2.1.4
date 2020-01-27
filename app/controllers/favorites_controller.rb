@@ -13,4 +13,14 @@ class FavoritesController < ApplicationController
         favorite.destroy
         redirect_to request.referrer#book_path(book)
     end
+#追記favoriteでは使わなかった。
+    private
+    def redirect
+      case params[:redirect_id].to_i
+      when 0
+        redirect_to books_path
+      when 1
+        redirect_to book_path(@book)
+      end
+    end
 end
