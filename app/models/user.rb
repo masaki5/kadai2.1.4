@@ -36,4 +36,18 @@ class User < ApplicationRecord
     following_relations.find_by(following_id: other_user.id).destroy
   end
 
+  def self.search(search,method)
+		if method == "1"
+		@users = User.where("name LIKE?","#{search}%")
+		elsif method == "2"
+		@users = User.where("name LIKE?","%#{search}")
+		elsif method == "3"
+		@users = User.where("name LIKE?","#{search}")
+		elsif method == "4"
+		@users = User.where("name LIKE?","%#{search}%")
+		else
+		@users = User.all
+		end
+	end
+
 end

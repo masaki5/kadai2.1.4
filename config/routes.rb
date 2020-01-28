@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :favorites, only: [:update, :destroy]
   resources :comments, only: [:create, :destroy]
 
+   get 'searchs/search'
 
   root 'home#top'
   get 'home/about'
