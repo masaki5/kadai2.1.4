@@ -7,11 +7,11 @@ Rails.application.routes.draw do
      end
    end
   resources :relations, only: [:create, :destroy]
-  resources :books
+  resources :books do
   #まずはルーティングを設定するfavoritesキャリ
-  resources :favorites, only: [:update, :destroy]
+  resources :favorites, only: [:create, :destroy]
   resources :comments, only: [:create, :destroy]
-
+end
    get 'searchs/search'
 
   root 'home#top'

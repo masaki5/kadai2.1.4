@@ -32,48 +32,19 @@
 					<%= link_to "Destroy",@books, method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn-sm btn-danger destroy_book_#{@books.id}" %>
 					<% end %></td>
 
-				<% if @books.favorited_by?(current_user) %>
-				<td>
-					<%= link_to favorite_path(@books), method: :delete do %>
-				<i class="fa fa-heart" aria-hidden="true" style="color: red;"></i>
-					<%= @books.favorites.count %> 
-					<% end %></td>
-				<% else %>
-				<td>
-					<%= link_to favorite_path(@books), method: :put do %>
-				<i class="fa fa-heart-o" aria-hidden="true"></i>
-					<%= @books.favorites.count %> 
-					<% end %></td>
-				<% end %>
+				<td id="favorites_buttons_<%= @books.id %>">
+				<%= render partial: 'favorites/favorite', locals: { book: @books} %>
+				</td>
+
 				<td>
                 <i class="fa fa-comment"></i>
                 <a href="#comments"><%= @books.comments.count %></a>
               	</td>
 		</div>
 	</table>
-		<div>
-              <h2><%= @books.comments.count %>件コメント</h2>
-										<ol>
-										<% @books.comments.each do |comment| %>
-										<li><%= attachment_image_tag comment.user, :profile_image, :fill, 40, 40, fallback: "no_image.jpg" %>
-										<a href="#" class="link-author"><%= comment.user.name %></a>
-										<%= @books.created_at.strftime('%Y/%m/%d') %>
-										<%= comment.comment %>
-										<% if comment.user == current_user %>
-                  						<%= link_to "削除", comment_path(comment), method: :delete %>
-                						<% end %>
-										<% end %></li>
-										</ol>
-          </div>
-            <h3><span>コメント</span></h3>
-          <%= form_for [@comment] do |f| %>
-              <div class="col-sm-9">
-                <%= f.text_field :comment, class: "form-control",placeholder: "コメントをここに" %>
-				<%= f.hidden_field :book_id, :value => @books.id %>
-              </div>
-            <%= f.submit "送信する", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
-          <% end %>
-
+				<div id="comments_buttons_<%= @books.id %>">
+				<%= render partial: 'comments/comment', locals: { books: @books, comment: @comment} %>
+				</div>
 	</div>
 </div>
 </div>

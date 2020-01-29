@@ -1,0 +1,22 @@
+<div>
+              <h2><%= books.comments.count %>件コメント</h2>
+				<ol>
+				<% books.comments.each do |comment| %>
+				<li><%= attachment_image_tag comment.user, :profile_image, :fill, 40, 40, fallback: "no_image.jpg" %>
+				<a href="#" class="link-author"><%= comment.user.name %></a>
+				<%= books.created_at.strftime('%Y/%m/%d') %>
+				<%= comment.comment %>
+				<% if comment.user == current_user %>
+				<%= link_to "削除", book_comment_path(books,comment), method: :delete, remote: true %>
+				<% end %>
+				<% end %></li>
+				</ol>
+          </div>
+            <h3><span>コメント</span></h3>
+            <!-- form_for [@books,@comment] do |f| -->
+			<!--form_wiht(model: [@book, @comment],local: true do |f| -->
+          <%= form_with model: comment,url: book_comments_path(books, comment)  do |f| %>
+                <%= f.text_field :comment, class: "form-control",placeholder: "コメントをここに" %>
+				<%= f.hidden_field :book_id, :value => books.id %>
+            <%= f.submit "送信する", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
+          <% end %>

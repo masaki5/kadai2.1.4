@@ -41,7 +41,7 @@
     <div class="top">
       <p id="notice"><%= notice %></p> <!--デバイスでnotice設定されているので呼び出してるだけ-->
     </div>
-    <div class = "search">
+    <div class="search">
     <% if user_signed_in? %>
     <%= form_tag(searchs_search_path,:method => 'get') do %>
 		<%= text_field_tag :search %>
